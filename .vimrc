@@ -10,11 +10,17 @@ Plug 'pangloss/vim-javascript', {'for': 'javascript'}
 Plug 'mxw/vim-jsx', {'for': 'javascript'}
 Plug 'othree/javascript-libraries-syntax.vim', {'for': 'javascript'}
 Plug 'vim-airline/vim-airline'
+Plug 'airblade/vim-gitgutter'
 Plug 'w0rp/ale'
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'tobyS/vmustache'
 Plug 'SirVer/ultisnips'
 Plug 'tobyS/pdv'
+Plug 'StanAngeloff/php.vim'
+Plug 'arnaud-lb/vim-php-namespace'
+Plug 'mattn/emmet-vim'
+Plug 'jwalton512/vim-blade'
+Plug 'Valloric/MatchTagAlways'
 
 call plug#end()
 
@@ -24,12 +30,15 @@ set tabstop=8
 set expandtab
 set softtabstop=4
 set shiftwidth=4
-
+set autowriteall
+set noerrorbells visualbell t_vb=               			"No damn bells!
+set complete=.,w,b,u 							"Set our desired autocompletion matching.
+set noswapfile
 
 "------------------- Look and Feel ---------------------"
 colorscheme gruvbox
 set t_CO=256								"Use 256 colors. This is useful for Terminal Vim.
-set guifont=Operator\ Mono:h14						"Set the default font family and size.
+set guifont=Fira\ Code:h15						"Set the default font family and size.
 set macligatures
 set guioptions-=e							"We don't want Gui tabs.
 "set linespace=15   						        "Macvim-specific line-height.
@@ -98,3 +107,38 @@ let g:ctrlp_custom_ignore = 'node_modules\|DS_Store\|git'
 "------------------- pdv ---------------------"
 let g:pdv_template_dir = $HOME ."/.vim/plugged/pdv/templates_snip"
 nnoremap <leader>d :call pdv#DocumentWithSnip()<CR>
+
+"------------------- vim-php-namespace ---------------------"
+function! IPhpExpandClass()
+    call PhpExpandClass()
+    call feedkeys('a', 'n')
+endfunction
+autocmd FileType php inoremap <Leader>ex <Esc>:call IPhpExpandClass()<CR>
+autocmd FileType php noremap <Leader>ex :call PhpExpandClass()<CR>
+
+function! IPhpInsertUse()
+    call PhpInsertUse()
+    call feedkeys('a',  'n')
+endfunction
+autocmd FileType php inoremap <Leader>i <Esc>:call IPhpInsertUse()<CR>
+autocmd FileType php noremap <Leader>i :call PhpInsertUse()<CR>
+
+"------------------- emmet-vim ---------------------"
+"let g:user_emmet_expandabbr_key = '<tab>'
+
+"/
+"/ Ultisnips
+"/
+let g:UltiSnipsExpandTrigger="<tab>"
+let g:UltiSnipsJumpForwardTrigger="<tab>"
+let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
+
+"------------------- MatchTagAlways ---------------------"
+let g:mta_filetypes = {
+    \ 'html' : 1,
+    \ 'xhtml' : 1,
+    \ 'xml' : 1,
+    \ 'jinja' : 1,
+    \ 'blade': 1
+    \}
+
