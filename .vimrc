@@ -5,6 +5,7 @@ call plug#begin('~/.vim/plugged')
 Plug 'tpope/vim-sensible'    					" I want sane defaults
 Plug 'tpope/vim-vinegar'
 Plug 'tpope/vim-surround'
+Plug 'tpope/vim-commentary'
 Plug 'morhetz/gruvbox'						
 Plug 'pangloss/vim-javascript', {'for': 'javascript'}
 Plug 'mxw/vim-jsx', {'for': 'javascript'}
@@ -21,6 +22,9 @@ Plug 'arnaud-lb/vim-php-namespace'
 Plug 'mattn/emmet-vim'
 Plug 'jwalton512/vim-blade'
 Plug 'Valloric/MatchTagAlways'
+Plug 'Valloric/YouCompleteMe'
+Plug 'tpope/vim-fugitive'
+Plug 'lumiliet/vim-twig'
 
 call plug#end()
 
@@ -39,9 +43,11 @@ set noswapfile
 colorscheme gruvbox
 set t_CO=256								"Use 256 colors. This is useful for Terminal Vim.
 set guifont=Fira\ Code:h15						"Set the default font family and size.
-set macligatures
+if has('gui-running')
+    set macligatures
+endif
 set guioptions-=e							"We don't want Gui tabs.
-"set linespace=15   						        "Macvim-specific line-height.
+set linespace=15   						        "Macvim-specific line-height.
 set guioptions-=l                                                       "Disable Gui scrollbars.
 set guioptions-=L
 set guioptions-=r
@@ -142,3 +148,7 @@ let g:mta_filetypes = {
     \ 'blade': 1
     \}
 
+"------------------- vim-fugitive ---------------------"
+nmap <leader>ga :Gwrite<cr>
+nmap <leader>gc :Gcommit<cr>
+nmap <leader>gp :Gpush
